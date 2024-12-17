@@ -4,7 +4,7 @@ spring:
 
   datasource:
     username: postgres
-    password: postgres
+    password: 56cbtm1b
     url: jdbc:postgresql://localhost:5432/tasks_db
     driver-class-name: org.postgresql.Driver
 

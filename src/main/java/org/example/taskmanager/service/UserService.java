@@ -2,6 +2,7 @@ package org.example.taskmanager.service;
 
 
 import org.example.taskmanager.entity.User;
+import org.example.taskmanager.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,7 +33,6 @@ public class UserService  {
         existingUser.setName(user.getName());
         return userRepository.save(existingUser);
 
-        //ee
     }
 
 }

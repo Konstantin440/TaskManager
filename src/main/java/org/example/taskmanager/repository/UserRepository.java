@@ -1,4 +1,4 @@
-package org.example.taskmanager.service;
+package org.example.taskmanager.repository;
 
 import org.example.taskmanager.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;

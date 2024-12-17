@@ -1,0 +1,33 @@
+version: '3.8'
+
+networks:
+  app-network:
+    driver: bridge
+
+
+services:
+  app:
+    image: app-img
+    ports:
+      - "8080:8090"
+    depends_on:
+      - postgres
+    environment:
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres/test_db
+    networks:
+      - app-network
+
+
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: test_db
+    ports:
+        - "5432:5432"
+
+    networks:
+      - app-network
