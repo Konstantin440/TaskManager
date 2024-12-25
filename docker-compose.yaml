@@ -1,33 +1,46 @@
+#объединение контейнеров работа сразу с несколькими контейнерами
+#версия  compose
 version: '3.8'
-
+# networks - сеть в которой будут работать сервисы/соединение
 networks:
   app-network:
     driver: bridge
 
-
+# сервисы которые будут
 services:
+  # volumes - директории из которых будут брать данные
+  # restart: always - перезапуск сервиса при падении
+  # сервис приложения
+  # app-img - имя образа приложения
   app:
     image: app-img
+    # ports - порты приложения, которые будут проксироваться наружу
     ports:
       - "8080:8090"
+    # depends_on - зависимость сервиса приложения от сервиса базы данных\связь
     depends_on:
       - postgres
+# Блок environment используется для передачи переменных окружения в контейнер.
+# Эти переменные могут быть использованы приложением, которое запускается внутри контейнера.
     environment:
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: root
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres/test_db
+      # networks - на уровне app сеть в которой будут работать сервисы/соединение
     networks:
       - app-network
 
 
   postgres:
+    #образ
     image: postgres:16
+    # какая база данных будет создана
     environment:
       POSTGRES_USER: root
       POSTGRES_PASSWORD: root
       POSTGRES_DB: test_db
     ports:
         - "5432:5432"
-
+    # networks - на уровне app сеть в которой будут работать сервисы/соединение
     networks:
       - app-network

@@ -12,8 +12,8 @@ public class TaskService {
     @Autowired
     private TaskRepository taskRepository;
 
-    public void save(Task task) {
-        taskRepository.save(task);
+    public Task save(Task task) {
+        return taskRepository.save(task);
     }
 
     public Task getById(Long id) {
@@ -25,8 +25,18 @@ public class TaskService {
         return taskRepository.findAll();
     }
 
-    public void deleteById(String id) {
-        taskRepository.deleteById(Long.parseLong(id));
+    public void deleteTask(Task task) {
+        taskRepository.delete(task);
+    }
+
+
+    public Task updateTask(Long id, Task updatedTask) {
+        Task existingTask = taskRepository.getById(id);
+
+        existingTask.setNameTask(updatedTask.getNameTask());
+        existingTask.setDescription(updatedTask.getDescription());
+
+        return taskRepository.save(existingTask);
     }
 
     public void deleteAll() {
